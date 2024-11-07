@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signin</title>
+    <script src="config.js"></script> <!-- Import config.js -->
+    <script>
+        async function signin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const response = await fetch(`${API_BASE_URL}/signin.php`, { // Use the variable here
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username,
+                    password,
+                }),
+            });
+            const result = await response.json();
+            alert(result.message);
+
+            if (result.status === 'success') {
+                localStorage.setItem('user', JSON.stringify(result.user));
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Signin</h1>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="signin()">Sign In</button>
+    <p>Don't have an account? <a href="signup.html">Sign up here</a></p>
+</body>
+</html>

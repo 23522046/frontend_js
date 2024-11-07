@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+    <script src="config.js"></script> <!-- Import config.js -->
+    <script>
+        async function signup() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const full_name = document.getElementById('full_name').value;
+
+            const response = await fetch(`${API_BASE_URL}/signup.php`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username,
+                    password,
+                    full_name,
+                }),
+            });
+            const result = await response.json();
+            alert(result.message); // Show the response status
+
+            if (result.status === 'success') {
+                window.location.href = 'signin.html'; // Redirect to signin page on success
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Signup</h1>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <input type="text" id="full_name" placeholder="Full Name" required>
+    <button onclick="signup()">Sign Up</button>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <script src="config.js"></script> <!-- Import config.js -->
+    <script>
+        // Check if the user is authenticated (for demonstration, this uses localStorage)
+        window.onload = function() {
+            if (!localStorage.getItem('user')) {
+                window.location.href = 'signin.html'; // Redirect to signin page if not authenticated
+            }
+        }
+
+        // Function to sign out the user
+        function signOut() {
+            localStorage.removeItem('user'); // Remove user from localStorage
+            alert("You have been signed out."); // Notify user
+            window.location.href = 'signin.html'; // Redirect to signin page
+        }
+    </script>
+</head>
+<body>
+    <h1>Welcome to the Index Page!</h1>
+    <p>This is the main page accessible only when authenticated.</p>
+    <button onclick="signOut()">Sign Out</button> <!-- Sign out button -->
+</body>
+</html>
